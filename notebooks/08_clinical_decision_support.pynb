@@ -19,3 +19,20 @@ pd.DataFrame({
 
 risk_category.value_counts()
 
+cat_probs = cat_model.predict_proba(X_test)[:, 1]
+
+risk_category = pd.cut(
+    cat_probs,
+    bins=[0, 0.25, 0.6, 1.0],
+    labels=["Low Risk", "Intermediate Risk", "High Risk"]
+)
+
+decision_df = pd.DataFrame({
+    "Predicted_Risk": cat_probs,
+    "Risk_Category": risk_category,
+    "True_Label": y_test.values
+})
+
+decision_df.head()
+
+decision_df["Risk_Category"].value_counts()
