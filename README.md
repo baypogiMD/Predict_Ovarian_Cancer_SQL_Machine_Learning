@@ -23,7 +23,9 @@ The design emphasizes **clinical interpretability, reproducibility, and publicat
 ## 📊 Dataset
 
 **Source:** Kaggle – *Predict Ovarian Cancer*
+
   (https://www.kaggle.com/datasets/saurabhshahane/predict-ovarian-cancer)  
+  
 **Samples:** 349 patients
 **Target variable:**
 
