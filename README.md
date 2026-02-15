@@ -47,26 +47,26 @@ This dataset enables structured clinical risk modeling without imaging or genomi
 
 ## 🔬 Analytical Workflow
 
-### 1️⃣ Data Validation
+### Data Validation
 
 * Load Excel dataset
 * Validate ranges and class balance
 * Store in SQLite
 
-### 2️⃣ SQL-First Exploration
+### SQL-First Exploration
 
 * Normalized relational schema
 * Cancer vs benign aggregation
 * Biomarker distribution analysis
 * Creation of ML-ready feature views
 
-### 3️⃣ Statistical Testing
+### Statistical Testing
 
 * Mann–Whitney U tests
 * Effect size (Cohen’s d)
 * Feature redundancy analysis
 
-### 4️⃣ Machine Learning
+### Machine Learning
 
 Models implemented:
 * Logistic Regression (baseline)
@@ -78,14 +78,14 @@ Performance metric:
 * Cross-validation stability
 * Sensitivity optimization
 
-### 5️⃣ Explainable AI
+### Explainable AI
 
 * SHAP summary plots
 * Global feature importance
 * Individual patient explanations
 * Clinical driver stability analysis
 
-### 6️⃣ Clinical Decision Support
+### Clinical Decision Support
 
 * Risk threshold optimization
 * Low / Intermediate / High risk categorization
@@ -123,7 +123,7 @@ It is currently considered **best-in-class for clinical tabular ML**.
 
 This repository is for **research and educational use only**.
 
-### 2️⃣ Install Dependencies
+### Install Dependencies
 
 Required packages include:
 * pandas
