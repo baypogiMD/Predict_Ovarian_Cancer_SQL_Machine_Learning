@@ -27,3 +27,40 @@ rf = RandomForestClassifier(n_estimators=300, random_state=42)
 rf.fit(X_train, y_train)
 roc_auc_score(y_test, rf.predict_proba(X_test)[:,1])
 
+## CatBoost: High-Performance Tabular Model
+
+from catboost import CatBoostClassifier
+from sklearn.metrics import roc_auc_score
+
+# Prepare data (no scaling needed)
+X = df.drop(columns=["type"])
+y = df["type"]
+
+X_train, X_test, y_train, y_test = train_test_split(
+    X, y,
+    test_size=0.2,
+    stratify=y,
+    random_state=42
+)
+
+# CatBoost model
+cat_model = CatBoostClassifier(
+    iterations=800,
+    depth=6,
+    learning_rate=0.05,
+    loss_function="Logloss",
+    eval_metric="AUC",
+    random_seed=42,
+    verbose=False
+)
+
+cat_model.fit(X_train, y_train)
+
+# Performance
+cat_auc = roc_auc_score(
+    y_test,
+    cat_model.predict_proba(X_test)[:, 1]
+)
+
+cat_auc
+
