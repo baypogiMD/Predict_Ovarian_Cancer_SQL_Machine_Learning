@@ -9,3 +9,24 @@ shap.summary_plot(shap_values, feature_names=X.columns)
 
 shap.plots.bar(shap_values)
 
+## SHAP Explainability for CatBoost
+
+import shap
+
+explainer = shap.TreeExplainer(cat_model)
+shap_values = explainer.shap_values(X_test)
+
+# Global feature importance
+shap.summary_plot(shap_values, X_test)
+
+# Bar plot (clinical interpretability)
+shap.summary_plot(shap_values, X_test, plot_type="bar")
+
+# Individual patient explanation
+shap.force_plot(
+    explainer.expected_value,
+    shap_values[0, :],
+    X_test.iloc[0, :],
+    matplotlib=True
+)
+
