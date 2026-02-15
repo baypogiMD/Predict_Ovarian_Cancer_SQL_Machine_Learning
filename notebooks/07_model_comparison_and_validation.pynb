@@ -1,0 +1,51 @@
+# Model Comparison and Validation
+
+from sklearn.model_selection import cross_val_score
+
+lr_auc = cross_val_score(lr, X_train, y_train, cv=5, scoring="roc_auc")
+rf_auc = cross_val_score(rf, X_train, y_train, cv=5, scoring="roc_auc")
+
+lr_auc.mean(), rf_auc.mean()
+
+import pandas as pd
+
+pd.DataFrame({
+    "Model": ["Logistic Regression", "Random Forest"],
+    "Mean ROC-AUC": [lr_auc.mean(), rf_auc.mean()]
+})
+
+from sklearn.model_selection import StratifiedKFold
+import numpy as np
+
+cv = StratifiedKFold(n_splits=5, shuffle=True, random_state=42)
+
+cat_auc_scores = []
+
+for train_idx, val_idx in cv.split(X, y):
+    X_tr, X_val = X.iloc[train_idx], X.iloc[val_idx]
+    y_tr, y_val = y.iloc[train_idx], y.iloc[val_idx]
+
+    model = CatBoostClassifier(
+        iterations=800,
+        depth=6,
+        learning_rate=0.05,
+        loss_function="Logloss",
+        eval_metric="AUC",
+        verbose=False
+    )
+
+    model.fit(X_tr, y_tr)
+    preds = model.predict_proba(X_val)[:, 1]
+    cat_auc_scores.append(roc_auc_score(y_val, preds))
+
+np.mean(cat_auc_scores), np.std(cat_auc_scores)
+
+pd.DataFrame({
+    "Model": ["Logistic Regression", "Random Forest", "CatBoost"],
+    "ROC-AUC": [
+        lr_auc.mean(),
+        rf_auc.mean(),
+        np.mean(cat_auc_scores)
+    ]
+})
+
